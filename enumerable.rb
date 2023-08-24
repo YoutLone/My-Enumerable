@@ -30,6 +30,12 @@ module MyEnumerable
   def sort()
     result = []
     each { |item| result << item }
-    result.sort { |a, b| yield a, b }
+    result.sort do |a, b|
+      if block_given?
+        yield a, b
+      else
+        a <=> b
+      end
+    end
   end
 end
